@@ -5,7 +5,7 @@ use resp::{Responser, Token};
 use serde::de::DeserializeOwned;
 use serde_json::{json, Value};
 
-const BASE_URL: &str = "https://api.dingtalk.com";
+const BASE_URL: &str = "https://oapi.dingtalk.com";
 
 #[derive(Debug)]
 pub struct Client {
@@ -36,7 +36,7 @@ impl Client {
 
         let resp = do_http(
             Method::GET,
-            &format!("{}/gettoken", BASE_URL),
+            &format!("{BASE_URL}/gettoken"),
             None,
             Some(query_body),
             None,
@@ -67,16 +67,24 @@ impl Client {
             .await?;
 
         if resp.error_code() != 0 {
-            return Err(new_api_error(resp.error_code(), resp.error_message()));
+            return Err(new_api_error(
+                resp.error_code(),
+                resp.error_message(),
+                resp.request_id(),
+            ));
         }
         Ok(resp)
 
         // 调试使用，验证输出结果
         // let resp = do_http(method, url, None, None, body).await?.text().await?;
         // println!("{resp}");
-        // Ok(crate::model::Response::default().data)
+        // Ok(Response::default().result.unwrap())
     }
 }
 
 mod http;
 mod resp;
+pub(crate) use resp::Response;
+
+mod user;
+pub use user::UserManager;

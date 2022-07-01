@@ -13,8 +13,12 @@ pub enum Error {
         message: String,
     },
     /// API error
-    #[error("errcode: {code}, errmsg: {message}")]
-    ApiError { code: u64, message: String },
+    #[error("errcode: {code}, errmsg: {message}, request_id: {request_id}")]
+    ApiError {
+        code: u64,
+        message: String,
+        request_id: String,
+    },
     /// 更新时空子段
     #[error("empty fileds when update")]
     EmptyFiledsUpdate,
@@ -38,6 +42,10 @@ pub fn new_http_error(url: String, status_code: StatusCode, message: String) -> 
     }
 }
 
-pub fn new_api_error(code: u64, message: String) -> Error {
-    Error::ApiError { code, message }
+pub fn new_api_error(code: u64, message: String, request_id: String) -> Error {
+    Error::ApiError {
+        code,
+        message,
+        request_id,
+    }
 }
