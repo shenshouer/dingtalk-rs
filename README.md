@@ -4,7 +4,7 @@
 接口参考：https://open.dingtalk.com/document/orgapp-server/api-overview
 
 ## doc
-[crates.io](https://crates.io/crates/dingtalk)
+[crates.io](https://crates.io/crates/dingtalk-rs)
 
 ## examples
 
