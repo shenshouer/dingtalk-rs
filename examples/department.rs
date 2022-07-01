@@ -1,5 +1,5 @@
 use anyhow::Result;
-use dingtalk_rs::{Client, UserManager};
+use dingtalk_rs::{client::DepartmentManager, Client};
 use dotenv::dotenv;
 use tracing::info;
 
@@ -10,8 +10,8 @@ async fn main() -> Result<()> {
 
     let client = Client::new_from_env()?;
 
-    let resp = client.user_get_by_mobile("18612424366").await?;
-    info!("user_get_by_mobile resp:{}", resp);
+    let resp = client.department_list(None).await?;
+    info!("department_list resp:{}", serde_json::to_string(&resp)?);
 
     Ok(())
 }

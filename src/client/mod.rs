@@ -88,3 +88,6 @@ pub(crate) use resp::Response;
 
 mod user;
 pub use user::UserManager;
+
+mod department;
+pub use department::DepartmentManager;
