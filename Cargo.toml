@@ -1,0 +1,22 @@
+[package]
+name = "dingtalk"
+version = "0.1.0"
+edition = "2021"
+description = "钉钉Rust版SDK"
+license = "MIT OR Apache-2.0"
+repository = "https://github.com/shenshouer/dingtalk-rs"
+keywords = ["dingtalk", "rust"]
+
+[dependencies]
+reqwest = { version = "0.11.11", features = ["json"] }
+tokio = { version = "1.19.2", features = ["full"] }
+tracing = "0.1.35"
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+thiserror = "1.0"
+async-trait = "0.1.56"
+
+[dev-dependencies]
+anyhow = "1.0.57"
+dotenv = "0.15.0"
+tracing-subscriber = "0.3.11"
