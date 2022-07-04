@@ -87,7 +87,7 @@ mod resp;
 pub(crate) use resp::Response;
 
 mod user;
-pub use user::UserManager;
+pub use user::*;
 
 mod department;
-pub use department::DepartmentManager;
+pub use department::*;
