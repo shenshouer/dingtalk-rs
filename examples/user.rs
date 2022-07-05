@@ -20,17 +20,29 @@ async fn main() -> Result<()> {
     // let user_detail = c.user_get("03634229671222446", None).await?;
     // info!("user_get resp: {}", serde_json::to_string(&user_detail)?);
 
-    let params = dingtalk_rs::client::ParamsUserListSimpeByDept {
+    // let params = dingtalk_rs::client::ParamsUserList {
+    //     dept_id: 1,
+    //     cursor: 0,
+    //     size: 100,
+    //     ..Default::default()
+    // };
+    // let user_sample_list = c.user_list_simple_by_dept(params).await?;
+    // info!(
+    //     "user_sample_list: {}",
+    //     serde_json::to_string(&user_sample_list)?
+    // );
+
+    // let user_ids = c.user_list_ids(1).await?;
+    // info!("user_ids: {}", serde_json::to_string(&user_ids)?);
+
+    let params = dingtalk_rs::client::ParamsUserList {
         dept_id: 1,
         cursor: 0,
         size: 100,
         ..Default::default()
     };
-    let user_sample_list = c.user_list_simple_by_dept(params).await?;
-    info!(
-        "user_sample_list: {}",
-        serde_json::to_string(&user_sample_list)?
-    );
+    let user_list = c.user_list(params).await?;
+    info!("user_ids: {}", serde_json::to_string(&user_list)?);
 
     Ok(())
 }

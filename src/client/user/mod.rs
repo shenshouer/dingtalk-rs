@@ -24,8 +24,14 @@ pub trait UserManager {
     /// https://open.dingtalk.com/document/orgapp-server/queries-the-simple-information-of-a-department-user
     async fn user_list_simple_by_dept(
         &self,
-        params: ParamsUserListSimpeByDept,
+        params: ParamsUserList,
     ) -> Result<PageResult<ListUserSimpleResponse>>;
+    /// 获取部门用户userid列表
+    /// https://open.dingtalk.com/document/orgapp-server/query-the-list-of-department-userids
+    async fn user_list_ids(&self, dept_id: i64) -> Result<Vec<String>>;
+    /// 获取部门用户详情
+    /// https://open.dingtalk.com/document/orgapp-server/queries-the-complete-information-of-a-department-user
+    async fn user_list(&self, params: ParamsUserList) -> Result<PageResult<UserDetail>>;
     // 新版服务端API
 }
 

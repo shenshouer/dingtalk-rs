@@ -99,22 +99,25 @@ pub struct UserDetail {
     /// 是否完成了实名认证：
     /// true：已认证
     /// false：未认证
-    pub real_authed: bool,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub real_authed: Option<bool>,
     /// 员工的企业邮箱类型。
     /// profession：标准版
     /// base：基础版
     #[serde(skip_serializing_if = "Option::is_none")]
     pub org_email_type: Option<String>,
     /// 是否为企业的高管：
-    pub senior: bool,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub senior: Option<bool>,
     /// 是否为企业的管理员
     pub admin: bool,
     /// 是否为企业的老板
     pub boss: bool,
     /// 员工所在部门信息及是否是领导：
-    pub leader_in_dept: Vec<DeptLeader>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub leader_in_dept: Option<Vec<DeptLeader>>,
     /// 角色列表
-    pub role_list: Vec<Role>,
+    pub role_list: Option<Vec<Role>>,
     /// 当用户来自于关联组织时的关联信息。
     /// 说明 用户所在企业存在关联关系的企业，返回该字段。
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -179,4 +182,9 @@ pub struct ListUserSimpleResponse {
     pub userid: String,
     /// 用户姓名
     pub name: String,
+}
+
+#[derive(Debug, Deserialize, Serialize, Default)]
+pub struct ListUserByDeptResponse {
+    pub userid_list: Vec<String>,
 }

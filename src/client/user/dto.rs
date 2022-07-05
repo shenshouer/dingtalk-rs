@@ -179,7 +179,7 @@ pub struct ParamsUpdateUser {
 }
 
 #[derive(Debug, Deserialize, Serialize, Default)]
-pub struct ParamsUserListSimpeByDept {
+pub struct ParamsUserList {
     /// 部门ID，如果是根部门，该参数传1。
     /// 企业内部应用，可调用获取部门列表获取
     /// 钉钉三方企业应用，可调用获取部门列表获取

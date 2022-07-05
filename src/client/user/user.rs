@@ -1,6 +1,6 @@
 use super::{
-    ListUserSimpleResponse, PageResult, ParamsCreateUser, ParamsUpdateUser,
-    ParamsUserListSimpeByDept, ResponseUserCreate, UserDetail, UserManager,
+    ListUserByDeptResponse, ListUserSimpleResponse, PageResult, ParamsCreateUser, ParamsUpdateUser,
+    ParamsUserList, ResponseUserCreate, UserDetail, UserManager,
 };
 use crate::{
     client::{ParamLanguage, Response, BASE_URL},
@@ -82,13 +82,39 @@ impl UserManager for Client {
 
     async fn user_list_simple_by_dept(
         &self,
-        params: ParamsUserListSimpeByDept,
+        params: ParamsUserList,
     ) -> Result<PageResult<ListUserSimpleResponse>> {
         let token = self.access_token().await?;
         let resp = self
             .request::<Response<PageResult<ListUserSimpleResponse>>>(
                 Method::POST,
                 &format!("{BASE_URL}/topapi/user/listsimple?access_token={token}"),
+                Some(serde_json::to_value(&params)?),
+            )
+            .await?;
+
+        Ok(resp.result.unwrap())
+    }
+
+    async fn user_list_ids(&self, dept_id: i64) -> Result<Vec<String>> {
+        let token = self.access_token().await?;
+        let resp = self
+            .request::<Response<ListUserByDeptResponse>>(
+                Method::POST,
+                &format!("{BASE_URL}/topapi/user/listid?access_token={token}"),
+                Some(serde_json::json!({ "dept_id": dept_id })),
+            )
+            .await?;
+
+        Ok(resp.result.unwrap().userid_list)
+    }
+
+    async fn user_list(&self, params: ParamsUserList) -> Result<PageResult<UserDetail>> {
+        let token = self.access_token().await?;
+        let resp = self
+            .request::<Response<PageResult<UserDetail>>>(
+                Method::POST,
+                &format!("{BASE_URL}/topapi/v2/user/list?access_token={token}"),
                 Some(serde_json::to_value(&params)?),
             )
             .await?;
