@@ -91,3 +91,6 @@ pub use user::*;
 
 mod department;
 pub use department::*;
+
+mod dto;
+pub use dto::*;

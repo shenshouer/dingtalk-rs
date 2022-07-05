@@ -1,3 +1,4 @@
+use crate::client::ParamLanguage;
 use serde::{Deserialize, Serialize};
 
 #[derive(Debug, Deserialize, Serialize, Default)]
@@ -6,21 +7,6 @@ pub struct ParamsDepartmentList {
     pub dept_id: Option<u64>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub language: Option<ParamLanguage>,
-}
-
-#[derive(Debug, Deserialize, Serialize)]
-// #[serde(untagged)]
-pub enum ParamLanguage {
-    #[serde(rename = "zh_CN")]
-    CN,
-    #[serde(rename = "en_US")]
-    Us,
-}
-
-impl Default for ParamLanguage {
-    fn default() -> Self {
-        Self::CN
-    }
 }
 
 #[derive(Debug, Deserialize, Serialize, Default)]
