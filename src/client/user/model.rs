@@ -198,3 +198,61 @@ pub struct AdminResponse {
     /// 2：子管理员
     pub sys_level: i32,
 }
+
+#[derive(Debug, Deserialize, Serialize, Default)]
+pub struct ResponseEmpLeaveRecordList {
+    #[serde(rename = "nextToken", skip_serializing_if = "Option::is_none")]
+    next_token: Option<String>,
+    records: Vec<EmployeeLeaveRecord>,
+}
+
+#[derive(Debug, Deserialize, Serialize, Default)]
+pub struct EmployeeLeaveRecord {
+    /// 员工的userId
+    #[serde(rename = "userId")]
+    pub user_id: String,
+    /// 员工名字
+    pub name: String,
+    /// 国际电话区号
+    #[serde(rename = "stateCode")]
+    pub state_code: String,
+    /// 手机号码
+    pub mobile: String,
+    #[serde(rename = "leaveTime")]
+    /// 离职时间。
+    /// 格式：YYYY-MM-DDTHH:mm:ssZ（ISO 8601/RFC 3339）
+    pub leave_time: String,
+    /// 退出企业方式，取值：
+    /// oapi：调用接口删除
+    /// cancel：注销
+    /// leave：主动离职
+    /// unknown：未知原因
+    /// delete：管理员删除
+    #[serde(rename = "leaveReason")]
+    pub leave_reason: LeaveReason,
+}
+
+#[derive(Debug, Deserialize, Serialize)]
+pub enum LeaveReason {
+    /// 调用接口删除
+    #[serde(rename = "oapi")]
+    Oapi,
+    /// 注销
+    #[serde(rename = "cancel")]
+    Cancel,
+    /// 主动离职
+    #[serde(rename = "leave")]
+    Leave,
+    /// unknown
+    #[serde(rename = "unknown")]
+    Unknown,
+    /// delete
+    #[serde(rename = "delete")]
+    Delete,
+}
+
+impl Default for LeaveReason {
+    fn default() -> Self {
+        Self::Unknown
+    }
+}

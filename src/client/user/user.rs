@@ -1,10 +1,11 @@
 use super::{
     AdminResponse, ListUserByDeptResponse, ListUserSimpleResponse, PageResult, ParamsCreateUser,
-    ParamsUpdateUser, ParamsUserInactiveGet, ParamsUserList, ResponseUserCreate, UserDetail,
-    UserGetByUnionIdResponse, UserManager,
+    ParamsEmpLeaveRecordList, ParamsUpdateUser, ParamsUserInactiveGet, ParamsUserList,
+    ResponseEmpLeaveRecordList, ResponseUserCreate, UserDetail, UserGetByUnionIdResponse,
+    UserManager,
 };
 use crate::{
-    client::{ParamLanguage, Response, BASE_URL},
+    client::{ParamLanguage, Response, ResponseFlatten, BASE_URL, BASE_URL_NEW_VERSION},
     Client, Result,
 };
 use async_trait::async_trait;
@@ -126,7 +127,7 @@ impl UserManager for Client {
     async fn user_count(&self, only_active: bool) -> Result<usize> {
         let token = self.access_token().await?;
         let resp = self
-            .request::<Response<CountUserResponse>>(
+            .request::<Response<ResponseCountUser>>(
                 Method::POST,
                 &format!("{BASE_URL}/topapi/user/count?access_token={token}"),
                 Some(serde_json::json!({ "only_active": only_active })),
@@ -177,6 +178,35 @@ impl UserManager for Client {
 
         Ok(resp.result.unwrap())
     }
+
+    async fn user_admin_scope_get(&self, userid: &str) -> Result<Vec<i64>> {
+        let token = self.access_token().await?;
+        let resp = self
+            .request::<ResponseFlatten<ResponseUserAdminScopeGet>>(
+                Method::POST,
+                &format!("{BASE_URL}/topapi/user/get_admin_scope?access_token={token}"),
+                Some(serde_json::json!({ "userid": userid })),
+            )
+            .await?;
+
+        Ok(resp.result.unwrap().dept_ids)
+    }
+
+    async fn emp_leave_record_list(
+        &self,
+        params: ParamsEmpLeaveRecordList,
+    ) -> Result<ResponseEmpLeaveRecordList> {
+        let resp = self
+            .request_new_version::<ResponseEmpLeaveRecordList>(
+                Method::GET,
+                &format!("{BASE_URL_NEW_VERSION}/v1.0/contact/empLeaveRecords"),
+                Some(serde_json::to_value(&params)?),
+            )
+            .await?;
+
+        Ok(resp)
+        // todo!()
+    }
 }
 
 #[derive(Debug, Deserialize, Serialize, Default)]
@@ -185,6 +215,11 @@ struct ResponseUserGetByMobile {
 }
 
 #[derive(Debug, Deserialize, Serialize, Default)]
-struct CountUserResponse {
+struct ResponseCountUser {
     count: usize,
+}
+
+#[derive(Debug, Deserialize, Serialize, Default)]
+struct ResponseUserAdminScopeGet {
+    dept_ids: Vec<i64>,
 }

@@ -83,6 +83,12 @@ pub async fn do_http(
         }
     }
 
+    // debug!(
+    //     req.url().to_string(),
+    //     req.headers(),
+    //     req.url().query()
+    // );
+
     // change method
     let m = req.method_mut();
     *m = method;

@@ -60,8 +60,21 @@ async fn main() -> Result<()> {
     // let uid = c.user_get_by_unionid("sIXI7wdxNtbdYtsTCrzMtgiEiE").await?;
     // info!("user_get_by_unionid: {}", serde_json::to_string(&uid)?);
 
-    let admin = c.user_admin_list().await?;
-    info!("user_admin_list: {}", serde_json::to_string(&admin)?);
+    // let admin = c.user_admin_list().await?;
+    // info!("user_admin_list: {}", serde_json::to_string(&admin)?);
+
+    // let admin_scope = c.user_admin_scope_get("224203514521476195").await?;
+    // info!("admin_scope: {}", serde_json::to_string(&admin_scope)?);
+
+    // 新版本服务器端API调用示例
+    let params = dingtalk_rs::client::ParamsEmpLeaveRecordList {
+        start_time: String::from("2021-07-10T00:00:00Z"),
+        end_time: None,
+        next_token: String::from("0"),
+        max_results: 50,
+    };
+    let records = c.emp_leave_record_list(params).await?;
+    info!("records: {}", serde_json::to_string(&records)?);
 
     Ok(())
 }

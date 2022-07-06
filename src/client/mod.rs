@@ -6,6 +6,7 @@ use serde::de::DeserializeOwned;
 use serde_json::{json, Value};
 
 const BASE_URL: &str = "https://oapi.dingtalk.com";
+const BASE_URL_NEW_VERSION: &str = "https://api.dingtalk.com";
 
 #[derive(Debug)]
 pub struct Client {
@@ -80,11 +81,53 @@ impl Client {
         // println!("{resp}");
         // Ok(Response::default().result.unwrap())
     }
+
+    /// 新版服务端API通用请求
+    async fn request_new_version<R: DeserializeOwned + Default>(
+        &self,
+        method: Method,
+        url: &str,
+        body: Option<Value>,
+    ) -> Result<R> {
+        let mut query = None;
+        let mut data = None;
+
+        match method {
+            Method::GET => query = body,
+            Method::POST => {
+                data = if let Some(data) = body {
+                    Some(PostParameters::json(data))
+                } else {
+                    None
+                };
+            }
+            _ => {}
+        }
+
+        let token = self.access_token().await?;
+
+        let headers = Some(std::collections::HashMap::from([(
+            reqwest::header::HeaderName::from_static("x-acs-dingtalk-access-token"),
+            token,
+        )]));
+
+        let resp = do_http(method, url, headers, query, data)
+            .await?
+            .json::<R>()
+            .await?;
+
+        Ok(resp)
+
+        // 调试使用，验证输出结果
+        // let resp = do_http(method, url, None, None, body).await?.text().await?;
+        // println!("{resp}");
+        // Ok(Response::default().result.unwrap())
+    }
 }
 
 mod http;
 mod resp;
-pub(crate) use resp::Response;
+pub(crate) use resp::{Response, ResponseFlatten};
 
 mod user;
 pub use user::*;

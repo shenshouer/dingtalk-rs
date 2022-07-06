@@ -239,3 +239,26 @@ pub struct ParamsUserInactiveGet {
     /// 查询日期，日期格式为：yyyyMMdd
     pub query_date: String,
 }
+
+#[derive(Debug, Deserialize, Serialize, Default)]
+pub struct ParamsEmpLeaveRecordList {
+    /// 开始时间。
+    /// 格式：YYYY-MM-DDTHH:mm:ssZ（ISO 8601/RFC 3339）
+    #[serde(rename = "startTime")]
+    pub start_time: String,
+    /// 结束时间。
+    /// 格式：YYYY-MM-DDTHH:mm:ssZ（ISO 8601/RFC 3339）。
+    /// 说明
+    /// 如果该参数不传，开始时间距离当前时间不能超过365天。
+    /// 如果该参数传参，开始时间和结束时间跨度不能超过365天。
+    #[serde(rename = "endTime", skip_serializing_if = "Option::is_none")]
+    pub end_time: Option<String>,
+    /// 分页游标。
+    /// 如果是首次查询，该参数传0。
+    /// 如果是非首次查询，该参数传上次调用本接口返回的nextToken
+    #[serde(rename = "nextToken")]
+    pub next_token: String,
+    /// 每页最大条目数，最大值50
+    #[serde(rename = "maxResults")]
+    pub max_results: i64,
+}

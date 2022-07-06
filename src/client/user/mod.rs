@@ -53,8 +53,19 @@ pub trait UserManager {
     /// 获取管理员列表
     /// https://open.dingtalk.com/document/orgapp-server/query-the-administrator-list
     async fn user_admin_list(&self) -> Result<Vec<AdminResponse>>;
+    /// 获取管理员通讯录权限范围
+    /// https://open.dingtalk.com/document/orgapp-server/query-permissions-of-the-administrator-address-book
+    async fn user_admin_scope_get(&self, userid: &str) -> Result<Vec<i64>>;
 
     // 新版服务端API
+    /// 查询离职记录列表
+    /// https://open.dingtalk.com/document/orgapp-server/query-the-details-of-employees-who-have-left-office
+    async fn emp_leave_record_list(
+        &self,
+        param: ParamsEmpLeaveRecordList,
+    ) -> Result<ResponseEmpLeaveRecordList>;
+
+    // TODO: 其他接口实现
 }
 
 mod dto;
