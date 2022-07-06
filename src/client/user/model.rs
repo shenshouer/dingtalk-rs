@@ -167,16 +167,6 @@ pub struct UnionEmpMap {
 }
 
 #[derive(Debug, Deserialize, Serialize, Default)]
-pub struct PageResult<T> {
-    /// 是否还有更多的数据
-    pub has_more: bool,
-    /// 下一次分页的游标，如果has_more为false，表示没有更多的分页数据。
-    pub next_cursor: Option<i64>,
-    /// 列表
-    pub list: Vec<T>,
-}
-
-#[derive(Debug, Deserialize, Serialize, Default)]
 pub struct ListUserSimpleResponse {
     /// 用户的userid
     pub userid: String,
@@ -187,4 +177,24 @@ pub struct ListUserSimpleResponse {
 #[derive(Debug, Deserialize, Serialize, Default)]
 pub struct ListUserByDeptResponse {
     pub userid_list: Vec<String>,
+}
+
+#[derive(Debug, Deserialize, Serialize, Default)]
+pub struct UserGetByUnionIdResponse {
+    /// 联系类型：
+    /// 0：企业内部员工
+    /// 1：企业外部联系人
+    pub contact_type: i64,
+    /// 用户的userid
+    pub userid: String,
+}
+
+#[derive(Debug, Deserialize, Serialize, Default)]
+pub struct AdminResponse {
+    /// 管理员的userid
+    pub userid: String,
+    /// 管理员角色：
+    /// 1：主管理员
+    /// 2：子管理员
+    pub sys_level: i32,
 }

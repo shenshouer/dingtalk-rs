@@ -91,6 +91,9 @@ pub use user::*;
 
 mod department;
 pub use department::*;
-
+/// 公共参数
 mod dto;
 pub use dto::*;
+/// 公共模型数据
+mod model;
+pub use model::*;

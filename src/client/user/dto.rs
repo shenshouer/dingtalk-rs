@@ -222,3 +222,20 @@ impl Default for OrderField {
         OrderField::Custom
     }
 }
+
+#[derive(Debug, Deserialize, Serialize, Default)]
+pub struct ParamsUserInactiveGet {
+    /// 是否活跃：
+    /// false：未登录
+    /// true：登录
+    pub is_active: bool,
+    /// 部门ID列表，可调用获取部门列表获取，不传表示查询整个企业
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub dept_ids: Option<Vec<i64>>,
+    /// 支持分页查询，与size参数同时设置时才生效，此参数代表偏移量，偏移量从0开始
+    pub offset: i64,
+    /// 支持分页查询，与offset参数同时设置时才生效，此参数代表分页大小，最大100
+    pub size: u32,
+    /// 查询日期，日期格式为：yyyyMMdd
+    pub query_date: String,
+}
