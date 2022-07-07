@@ -1,5 +1,5 @@
 use anyhow::Result;
-use dingtalk_rs::{client::DepartmentManager, Client};
+use dingtalk_rs::{Client, DepartmentManager};
 use dotenv::dotenv;
 use tracing::info;
 
