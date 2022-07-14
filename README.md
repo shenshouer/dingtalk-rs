@@ -18,11 +18,11 @@
 ## todo list
 
 - [ ] 事件订阅 [消息加解密](./src/client/event_subscribe/callback_crypto.rs)
+- [ ] 获取访问凭证
     - [✓] [获取企业内部应用的access_token](./src/client/mod.rs)
     - [ ] 服务商获取第三方应用授权企业的access_token
     - [ ] 获取jsapi_ticket
     - [ ] 获取微应用后台免登的access_token
-- [ ] 获取访问凭证
 - [ ] 身份验证
 - [ ] 酷应用
 - [ ] 通讯录管理
