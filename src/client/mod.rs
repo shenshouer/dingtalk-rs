@@ -140,3 +140,6 @@ pub use dto::*;
 /// 公共模型数据
 mod model;
 pub use model::*;
+/// 事件订阅
+mod event_subscribe;
+pub use event_subscribe::*;

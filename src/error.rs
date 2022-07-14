@@ -19,6 +19,8 @@ pub enum Error {
         message: String,
         request_id: String,
     },
+    #[error("{0}")]
+    General(String),
     /// 更新时空子段
     #[error("empty fileds when update")]
     EmptyFiledsUpdate,
@@ -32,6 +34,8 @@ pub enum Error {
     Serde(#[from] serde_json::Error),
     #[error(transparent)]
     EnvVar(#[from] std::env::VarError),
+    #[error(transparent)]
+    Decode(#[from] base64::DecodeError),
 }
 
 pub fn new_http_error(url: String, status_code: StatusCode, message: String) -> Error {
