@@ -17,7 +17,8 @@
 
 ## todo list
 
-- [ ] 事件订阅 [消息加解密](./src/client/event_subscribe/callback_crypto.rs)
+- [✓] 事件订阅 [实现](./src/client/event_subscribe/mod.rs) [例子](./examples/event_subscribe.rs)
+    - [消息加解密](./src/client/event_subscribe/callback_crypto.rs)
 - [ ] 获取访问凭证
     - [✓] [获取企业内部应用的access_token](./src/client/mod.rs)
     - [ ] 服务商获取第三方应用授权企业的access_token

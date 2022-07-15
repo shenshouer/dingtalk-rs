@@ -58,6 +58,7 @@ where
 
 #[derive(Debug, Deserialize, Serialize)]
 pub(crate) struct ResponseFlatten<T> {
+    #[serde(flatten, skip_serializing_if = "Option::is_none")]
     request_id: Option<String>,
     #[serde(rename = "errcode")]
     err_code: u64,
