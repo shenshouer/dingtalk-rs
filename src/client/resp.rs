@@ -58,7 +58,7 @@ where
 
 #[derive(Debug, Deserialize, Serialize)]
 pub(crate) struct ResponseFlatten<T> {
-    #[serde(flatten, skip_serializing_if = "Option::is_none")]
+    #[serde(skip_serializing_if = "Option::is_none")]
     request_id: Option<String>,
     #[serde(rename = "errcode")]
     err_code: u64,
@@ -85,9 +85,7 @@ where
     }
 
     fn request_id(&self) -> String {
-        self.request_id
-            .clone()
-            .unwrap_or("no request id found".to_string())
+        self.request_id.clone().unwrap_or("".to_string())
     }
 }
 

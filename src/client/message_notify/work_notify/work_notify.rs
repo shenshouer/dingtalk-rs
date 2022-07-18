@@ -72,7 +72,7 @@ impl WorkNotifier for Client {
             .request::<ResponseFlatten<ResponseAsyncSendResult>>(
                 Method::POST,
                 &format!(
-                    "{BASE_URL}/topapi/message/corpconversation/getsendprogress?access_token={token}"
+                    "{BASE_URL}/topapi/message/corpconversation/getsendresult?access_token={token}"
                 ),
                 Some(serde_json::json!({
                     "agent_id": agent_id,
@@ -96,6 +96,44 @@ impl WorkNotifier for Client {
         )
         .await?;
 
+        Ok(())
+    }
+}
+
+#[cfg(test)]
+mod test {
+    use super::super::ResponseAsyncSendResult;
+    use crate::client::ResponseFlatten;
+    use anyhow::Result;
+    #[test]
+    fn test_serialize() -> Result<()> {
+        let resp: ResponseFlatten<ResponseAsyncSendResult> = serde_json::from_str(
+            r#"{
+            "errcode": 0,
+            "errmsg": "ok",
+            "request_id": "16mntlsmab8rx",
+            "send_result":
+            {
+                "failed_user_id_list":
+                [],
+                "forbidden_list":
+                [],
+                "invalid_dept_id_list":
+                [],
+                "invalid_user_id_list":
+                [],
+                "read_user_id_list":
+                [
+                    "025618665127939390",
+                    "023442065637615370"
+                ],
+                "unread_user_id_list":
+                []
+            }
+        }"#,
+        )?;
+
+        println!("{resp:?}");
         Ok(())
     }
 }

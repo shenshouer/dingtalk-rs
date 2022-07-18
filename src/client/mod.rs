@@ -2,7 +2,7 @@ use crate::error::{new_api_error, Result};
 use http::{do_http, PostParameters};
 use reqwest::Method;
 use resp::{Responser, Token};
-use serde::de::DeserializeOwned;
+use serde::{de::DeserializeOwned, ser::Serialize};
 use serde_json::{json, Value};
 
 const BASE_URL: &str = "https://oapi.dingtalk.com";
@@ -50,7 +50,7 @@ impl Client {
     }
 
     // http 请求
-    async fn request<R: Responser + DeserializeOwned + Default>(
+    async fn request<R: Responser + DeserializeOwned + Serialize + Default>(
         &self,
         method: Method,
         url: &str,
@@ -67,6 +67,7 @@ impl Client {
             .json::<R>()
             .await?;
 
+        // println!("{}", serde_json::to_string(&resp)?);
         if resp.error_code() != 0 {
             return Err(new_api_error(
                 resp.error_code(),
