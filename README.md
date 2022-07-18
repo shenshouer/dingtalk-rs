@@ -39,7 +39,7 @@
 - [ ] 互联平台
 - [ ] 群会话管理
 - [ ] 消息通知
-    - [✓] 工作通知 [实现](./src/client/message_notify/work_notify/mod.rs) 
+    - [✓] 工作通知 [实现](./src/client/message_notify/work_notify/mod.rs) [例子](./examples/work_notify.rs)
     - [ ] 企业群通知
     - [ ] 普通消息
 - [ ] OA审批
