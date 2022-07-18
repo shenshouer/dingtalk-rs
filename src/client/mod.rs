@@ -129,11 +129,10 @@ mod http;
 mod resp;
 pub(crate) use resp::{Response, ResponseFlatten};
 
-mod user;
-pub use user::*;
+/// 通讯录管理
+mod contact_manager;
+pub use contact_manager::*;
 
-mod department;
-pub use department::*;
 /// 公共参数
 mod dto;
 pub use dto::*;
@@ -143,3 +142,7 @@ pub use model::*;
 /// 事件订阅
 mod event_subscribe;
 pub use event_subscribe::*;
+
+/// 消息通知
+mod message_notify;
+pub use message_notify::*;

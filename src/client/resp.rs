@@ -62,8 +62,8 @@ pub(crate) struct ResponseFlatten<T> {
     request_id: Option<String>,
     #[serde(rename = "errcode")]
     err_code: u64,
-    #[serde(rename = "errmsg")]
-    err_msg: String,
+    #[serde(rename = "errmsg", skip_serializing_if = "Option::is_none")]
+    err_msg: Option<String>,
     #[serde(flatten, skip_serializing_if = "Option::is_none")]
     pub result: Option<T>,
 }
@@ -77,7 +77,11 @@ where
     }
 
     fn error_message(&self) -> String {
-        self.err_msg.clone()
+        if let Some(ref msg) = self.err_msg {
+            msg.clone()
+        } else {
+            "".to_string()
+        }
     }
 
     fn request_id(&self) -> String {

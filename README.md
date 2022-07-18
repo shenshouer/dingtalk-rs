@@ -27,9 +27,9 @@
 - [ ] 身份验证
 - [ ] 酷应用
 - [ ] 通讯录管理
-    - [✓] 用户管理 [实现](./src/client/user/mod.rs) [例子](./examples/user.rs)
+    - [✓] 用户管理 [实现](./src/client/contact_manager/user/mod.rs) [例子](./examples/user.rs)
     - [ ] 专属账号 
-    - [✓] 部门管理 [实现](./src/client/department/mod.rs) [例子](./examples/department.rs)
+    - [✓] 部门管理 [实现](./src/client/contact_manager/department/mod.rs) [例子](./examples/department.rs)
     - [ ] 角色管理
     - [ ] 外部联系人
     - [ ] 企业管理
@@ -39,6 +39,9 @@
 - [ ] 互联平台
 - [ ] 群会话管理
 - [ ] 消息通知
+    - [✓] 工作通知 [实现](./src/client/message_notify/work_notify/mod.rs) 
+    - [ ] 企业群通知
+    - [ ] 普通消息
 - [ ] OA审批
 - [ ] 智能填表
 - [ ] 智能人事
