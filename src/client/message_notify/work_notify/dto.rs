@@ -1,4 +1,4 @@
-use crate::client::message_notify::MessageBody;
+use crate::client::message_notify::Message;
 use serde::{Deserialize, Serialize};
 
 /// 发送工作通知参数
@@ -30,7 +30,7 @@ pub struct ParamsWorkNotificationSend {
     /// 注意 OA消息支持通过status_bar参数设置消息的状态文案和颜色，消息发送后可调用更新工作通知状态栏接口更新消息状态和颜色。
     /// Markdown消息
     /// 卡片消息
-    pub msg: MessageBody,
+    pub msg: Message,
 }
 
 /// 更新工作通知状态栏参数
