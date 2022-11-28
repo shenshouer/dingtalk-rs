@@ -107,7 +107,7 @@ pub struct DeptTitle {
     pub title: Option<String>,
 }
 
-#[derive(Debug, Deserialize, Serialize)]
+#[derive(Debug, Deserialize, Serialize, Default)]
 pub struct ParamsUpdateUser {
     /// 员工的userId
     pub userid: String,
