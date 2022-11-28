@@ -67,14 +67,18 @@ async fn main() -> Result<()> {
     // info!("admin_scope: {}", serde_json::to_string(&admin_scope)?);
 
     // 新版本服务器端API调用示例
-    let params = dingtalk_rs::client::ParamsEmpLeaveRecordList {
-        start_time: String::from("2021-07-10T00:00:00Z"),
-        end_time: None,
-        next_token: String::from("0"),
-        max_results: 50,
-    };
-    let records = c.emp_leave_record_list(params).await?;
-    info!("records: {}", serde_json::to_string(&records)?);
+    // let params = dingtalk_rs::client::ParamsEmpLeaveRecordList {
+    //     start_time: String::from("2021-07-10T00:00:00Z"),
+    //     end_time: None,
+    //     next_token: String::from("0"),
+    //     max_results: 50,
+    // };
+    // let records = c.emp_leave_record_list(params).await?;
+    // info!("records: {}", serde_json::to_string(&records)?);
+
+    // let user = c.user_get("025618665127939390", None).await?;
+    let user = c.user_get("shenshouer2955@ipalfish.com", None).await?;
+    info!("records: {}", serde_json::to_string(&user)?);
 
     Ok(())
 }

@@ -148,7 +148,7 @@ pub struct ParamsUpdateUser {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub remark: Option<String>,
     /// 所属部门ID列表
-    pub dept_id_list: Vec<i64>,
+    pub dept_id_list: Option<String>,
     /// 员工在对应的部门中的排序
     #[serde(skip_serializing_if = "Option::is_none")]
     pub dept_order_list: Option<Vec<DeptOrder>>,
