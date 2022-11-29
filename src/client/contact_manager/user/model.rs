@@ -45,7 +45,8 @@ pub struct UserDetail {
     /// 员工工号
     pub job_number: String,
     /// 职位
-    pub title: String,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub title: Option<String>,
     /// 员工邮箱。
     /// 说明
     /// 企业内部应用，只有应用开通通讯录邮箱等个人信息权限，才会返回该字段。
