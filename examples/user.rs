@@ -77,7 +77,7 @@ async fn main() -> Result<()> {
     // info!("records: {}", serde_json::to_string(&records)?);
 
     // let user = c.user_get("025618665127939390", None).await?;
-    let user = c.user_get("shenshouer2955@ipalfish.com", None).await?;
+    let user = c.user_get("xueyu18237@ipalfish.com", None).await?;
     info!("records: {}", serde_json::to_string(&user)?);
 
     Ok(())
