@@ -13,6 +13,8 @@ pub trait DepartmentManager {
     /// 删除部门
     /// https://open.dingtalk.com/document/orgapp-server/delete-a-department-v2
     async fn department_delete(&self, dept_id: i64) -> Result<()>;
+    /// 获取部门详情
+    /// https://open.dingtalk.com/document/orgapp-server/query-department-details0-v2
     async fn department_detail(&self, params: ParamsDepartmentList) -> Result<DeptDetailResponse>;
     /// 获取部门列表
     /// https://open.dingtalk.com/document/orgapp-server/obtain-the-department-list-v2
