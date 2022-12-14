@@ -52,11 +52,13 @@ pub struct DeptDetailResponse {
     /// 在父部门中的次序值
     pub order: i64,
     /// 部门群ID
-    pub dept_group_chat_id: String,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub dept_group_chat_id: Option<String>,
     /// 部门群是否包含子部门
     pub group_contain_sub_dept: bool,
     /// 企业群群主userId
-    pub org_dept_owner: String,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub org_dept_owner: Option<String>,
     /// 部门的主管userd列表
     #[serde(skip_serializing_if = "Option::is_none")]
     pub dept_manager_userid_list: Option<Vec<String>>,

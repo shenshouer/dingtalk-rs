@@ -30,12 +30,12 @@ async fn main() -> Result<()> {
     // let resp = c.department_list(None).await?;
     // info!("department_list resp:{}", serde_json::to_string(&resp)?);
 
-    // let params_get = dingtalk_rs::client::ParamsDepartmentList {
-    //     dept_id: Some(1),
-    //     ..Default::default()
-    // };
-    // let resp = c.department_detail(params_get).await?;
-    // info!("department_detail resp:{}", serde_json::to_string(&resp)?);
+    let params_get = dingtalk_rs::client::ParamsDepartmentList {
+        dept_id: Some(101947311),
+        ..Default::default()
+    };
+    let resp = c.department_detail(params_get).await?;
+    info!("department_detail resp:{}", serde_json::to_string(&resp)?);
 
     // let resp = c.department_list_sub_ids(1).await?;
     // info!(
@@ -49,13 +49,13 @@ async fn main() -> Result<()> {
     //     serde_json::to_string(&resp)?
     // );
 
-    let resp = c
-        .department_list_parent_ids_by_userid("manager1892")
-        .await?;
-    info!(
-        "department_list_parent_ids_by_userid resp: {}",
-        serde_json::to_string(&resp)?
-    );
+    // let resp = c
+    //     .department_list_parent_ids_by_userid("manager1892")
+    //     .await?;
+    // info!(
+    //     "department_list_parent_ids_by_userid resp: {}",
+    //     serde_json::to_string(&resp)?
+    // );
 
     Ok(())
 }
