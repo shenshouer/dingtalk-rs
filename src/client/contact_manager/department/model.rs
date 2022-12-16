@@ -74,7 +74,7 @@ pub struct DeptDetailResponse {
     /// 未限制本部门成员查看通讯录（即outer_dept为false）：调用接口不返回outer_permit_depts字段
     pub outer_permit_depts: Vec<i64>,
     /// 配置的部门员工可见员工userId列表
-    pub outer_permit_users: Vec<i64>,
+    pub outer_permit_users: Vec<String>,
     /// 是否开启隐藏本部门：
     /// true：开启隐藏本部门。可以设置隐藏范围，如设置向所有人和部门隐藏，或者允许指定部门/人可见。
     /// false：关闭隐藏本部门，即部门在公司通讯录显示

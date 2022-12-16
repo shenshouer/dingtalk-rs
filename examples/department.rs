@@ -31,7 +31,7 @@ async fn main() -> Result<()> {
     // info!("department_list resp:{}", serde_json::to_string(&resp)?);
 
     let params_get = dingtalk_rs::client::ParamsDepartmentList {
-        dept_id: Some(101947311),
+        dept_id: Some(55693372),
         ..Default::default()
     };
     let resp = c.department_detail(params_get).await?;
